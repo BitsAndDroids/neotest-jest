@@ -375,12 +375,7 @@ local function reducePattern(cwd, path)
   local normalized_cwd = vim.fn.resolve(vim.fs.normalize(cwd) .. "/")
   local normalized_path = vim.fs.normalize(path)
 
-  local substituted_path = vim.fn.substitute(normalized_path, normalized_cwd, "", "g")
-
-  -- Replace all backslashes with forward slashes in the substituted path
-  substituted_path = substituted_path:gsub("\\", "/")
-
-  return substituted_path
+  return vim.fn.substitute(normalized_path, normalized_cwd, "", "g"):gsub("/", "")
 end
 ---@param args neotest.RunArgs
 ---@return neotest.RunSpec | nil
@@ -429,7 +424,7 @@ function adapter.build_spec(args)
     "--outputFile=" .. results_path,
     "--testNamePattern=" .. testNamePattern,
     "--forceExit",
-    string.sub(pos.path, 4),
+    escapeTestPattern(reducePattern(cwd, pos.path)),
   })
 
   local cwd = getCwd(pos.path)
