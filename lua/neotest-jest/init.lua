@@ -378,7 +378,7 @@ local function reducePattern(cwd, path)
   local substituted_path = vim.fn.substitute(normalized_path, normalized_cwd, "", "g")
 
   -- Replace all backslashes with forward slashes in the substituted path
-  substituted_path = string.gsub(substituted_path, "\\\\", "/")
+  substituted_path = string.gsub(substituted_path, "\\", "/")
 
   return substituted_path
 end
