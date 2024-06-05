@@ -373,9 +373,11 @@ local function parsed_json_to_results(data, output_file, consoleOut)
 end
 local function reducePattern(cwd, path)
   local normalized_cwd = vim.fn.resolve(vim.fs.normalize(cwd) .. "/")
+  normalized_cwd = normalized_cwd:gsub("\\", "/")
   local normalized_path = vim.fs.normalize(path)
+  normalized_path = normalized_path:gsub("\\", "/")
 
-  return vim.fn.substitute(normalized_path, normalized_cwd, "", "g"):gsub("/", "\\")
+  return vim.fn.substitute(normalized_path, normalized_cwd, "", "g")
 end
 ---@param args neotest.RunArgs
 ---@return neotest.RunSpec | nil
