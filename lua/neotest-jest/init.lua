@@ -374,8 +374,13 @@ end
 local function reducePattern(cwd, path)
   local normalized_cwd = vim.fn.resolve(vim.fs.normalize(cwd) .. "/")
   local normalized_path = vim.fs.normalize(path)
-  normalized_path = string.gsub(normalized_path, "\\\\", "/")
-  return vim.fn.substitute(normalized_path, normalized_cwd, "", "g")
+
+  local substituted_path = vim.fn.substitute(normalized_path, normalized_cwd, "", "g")
+
+  -- Replace all backslashes with forward slashes in the substituted path
+  substituted_path = string.gsub(substituted_path, "\\\\", "/")
+
+  return substituted_path
 end
 ---@param args neotest.RunArgs
 ---@return neotest.RunSpec | nil
