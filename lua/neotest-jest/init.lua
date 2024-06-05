@@ -429,7 +429,7 @@ function adapter.build_spec(args)
     "--outputFile=" .. results_path,
     "--testNamePattern=" .. testNamePattern,
     "--forceExit",
-    escapeTestPattern(reducePattern(cwd, pos.path)),
+    pos.path,
   })
 
   local cwd = getCwd(pos.path)
