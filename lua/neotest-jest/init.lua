@@ -375,7 +375,7 @@ local function reducePattern(cwd, path)
   local normalized_cwd = vim.fn.resolve(vim.fs.normalize(cwd) .. "/")
   local normalized_path = vim.fs.normalize(path)
 
-  return vim.fn.substitute(normalized_path, normalized_cwd, "", "g"):gsub("/", "")
+  return vim.fn.substitute(normalized_path, normalized_cwd, "", "g"):gsub("/", "\\")
 end
 ---@param args neotest.RunArgs
 ---@return neotest.RunSpec | nil
